@@ -24,7 +24,7 @@ a:hover {
 
 /* 🧍‍♂️ 主體樣式（淺色模式） */
 body {
-  font-size: 200%;          /* 放大整體字體（約 32px） */
+  font-size: 125%;          /* 使用相對字級（約 20px） */
   line-height: 1.6;         /* 增加行距，提升可讀性 */
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif; /* 主體字型 */
   color: #222;              /* 深灰文字，適合白色背景 */
@@ -33,7 +33,7 @@ body {
 
 /* 🏷️ 標題樣式 */
 h1 {
-  font-size: 3.2em;         /* 超大標題字級（約 100px） */
+  font-size: 250%;          /* 超大標題字級（約 40px） */
   line-height: 1.1;         /* 緊湊的標題行距 */
 }
 
@@ -41,8 +41,8 @@ h1 {
 button {
   border-radius: 8px;       /* 圓角按鈕 */
   border: 1px solid transparent; /* 無邊框但保留 hover 效果 */
-  padding: 0.6em 1.2em;     /* 內距設定 */
-  font-size: 1em;           /* 字級繼承（約 32px） */
+  padding: 2% 4%;           /* 使用百分比內距，適應不同螢幕 */
+  font-size: 100%;          /* 字級繼承（約 16px） */
   font-weight: 500;         /* 字重加強 */
   font-family: inherit;     /* 繼承父層字型 */
   background-color: #1a1a1a; /* 深色背景 */
@@ -73,9 +73,10 @@ button:focus-visible {
 
 /* 📝 表單輸入欄位樣式（通用放大版） */
 .input-large {
-  font-size: 1.5em;         /* 放大文字（約 48px） */
-  padding: 0.75rem 1rem;    /* 放大內距 */
-  width: 300px;             /* 固定寬度 */
+  font-size: 120%;          /* 放大文字（約 19px） */
+  padding: 2% 3%;           /* 使用百分比內距 */
+  width: 100%;              /* 全寬度，適應容器 */
+  max-width: 90%;           /* 限制最大寬度，避免過寬 */
   border: 2px solid #888;   /* 灰色邊框 */
   border-radius: 6px;       /* 圓角邊框 */
   background-color: #f9f9f9; /* 淺灰背景 */
@@ -88,15 +89,17 @@ button:focus-visible {
 
 /* 🏷️ 表單標題樣式 */
 .form-title {
-  font-size: 2em;           /* 放大標題（約 64px） */
-  margin-bottom: 1rem;      /* 與下方元素間距 */
+  font-size: 150%;          /* 放大標題（約 24px） */
+  margin-bottom: 2%;        /* 與下方元素間距 */
 }
 
 /* 🔘 表單按鈕樣式（通用） */
 .btn {
-  font-size: 1.2em;         /* 放大按鈕文字（約 38px） */
-  padding: 0.5rem 1rem;     /* 內距設定 */
-  margin: 0.5rem;           /* 外距設定 */
+  font-size: 110%;          /* 放大按鈕文字（約 18px） */
+  padding: 2% 4%;           /* 使用百分比內距 */
+  margin: 2%;               /* 外距設定 */
+  width: 100%;              /* 全寬度按鈕 */
+  max-width: 90%;
   cursor: pointer;          /* 滑鼠指標變成手指 */
 }
 
@@ -121,9 +124,10 @@ button:focus-visible {
 
 /* 💳 已刷金額輸入框樣式（表格內） */
 .used-amount-input {
-  font-size: 1.5em;         /* 放大文字 */
-  padding: 0.75rem 1rem;    /* 放大內距 */
-  width: 200px;             /* 固定寬度 */
+  font-size: 120%;           /* 放大文字（約 19px） */
+  padding: 2% 3%;            /* 使用百分比內距 */
+  width: 100%;               /* 全寬度 */
+  max-width: 80%;            /* 限制最大寬度 */
   border: 2px solid #888;
   border-radius: 6px;
   background-color: #f9f9f9;
@@ -137,19 +141,22 @@ button:focus-visible {
 
 /* 📊 表格列樣式 */
 .card-row td {
-  padding: 1rem;            /* 表格欄位內距 */
-  font-size: 1.2em;         /* 放大表格文字 */
+  padding: 2%;               /* 使用百分比內距 */
+  font-size: 110%;           /* 放大表格文字（約 18px） */
+  word-break: break-word;    /* 避免文字溢出 */
 }
 
 /* ✏️🗑️ 編輯與刪除按鈕樣式 */
 .btn-edit,
 .btn-delete {
-  font-size: 1.2em;         /* 放大按鈕文字 */
-  padding: 0.5rem 1rem;
-  margin: 0 0.25rem;
+  font-size: 110%;           /* 放大按鈕文字（約 18px） */
+  padding: 2% 4%;
+  margin: 1%;
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  width: 100%;
+  max-width: 90%;
 }
 .btn-edit {
   background-color: #4caf50; /* 綠色背景（編輯） */
