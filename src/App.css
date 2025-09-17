@@ -1,0 +1,83 @@
+/* 全域字體大小設定為 200%（約 32px） */
+body {
+  font-size: 200%;
+  line-height: 1.6;
+  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  color: #222;
+}
+
+/* 根容器排版 */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* logo 動畫與樣式 */
+.logo {
+  height: 8em;
+  padding: 2em;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+/* 卡片區塊 */
+.card {
+  padding: 2em;
+}
+
+/* 文件提示文字 */
+.read-the-docs {
+  color: #888;
+  font-size: 90%;
+}
+
+/* 表格樣式放大 */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  font-size: 100%; /* 已經繼承 200% 的 body 字級 */
+}
+
+th, td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+/* 輸入欄位放大 */
+input[type="number"],
+input[type="text"] {
+  font-size: 1em; /* 繼承 200% 的 body 字級 */
+  padding: 0.75rem;
+  width: 150px;
+}
+
+/* 按鈕樣式放大 */
+button {
+  font-size: 1em;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  cursor: pointer;
+}
