@@ -166,3 +166,35 @@ button:focus-visible {
   background-color: #f44336; /* 紅色背景（刪除） */
   color: white;
 }
+
+.confirm-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.confirm-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 90%;
+  text-align: center;
+}
+
+.confirm-message {
+  font-size: 1.2em;
+  margin-bottom: 1rem;
+}
+
+.confirm-actions button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1em;
+}

@@ -1,0 +1,114 @@
+功能流程概述
+🟦 第 1 頁：信用卡資料輸入頁面
+使用者輸入以下欄位：
+- 信用卡名稱（例如「台新@Go」）
+- 回饋百分比（例如 3%）
+- 回饋上限（例如 $300）
+- 按下「輸出」按鈕 → 導向第 2 頁並帶入資料
+🟩 第 2 頁：信用卡額度表格頁面
+根據第 1 頁輸入的資料，顯示一張表格：
+|  |  |  |  | 
+|  |  |  |  | 
+
+
+計算邏輯：
+- 可刷額度 = 回饋上限 ÷ 回饋百分比（例如 $300 ÷ 3% = $10,000）
+- 剩餘可刷額度 = 可刷額度 − 已刷金額
+
+🧠 資料流設計建議
+- 使用 React 的 useState 或 useReducer 管理信用卡資料
+- 使用 react-router-dom 做頁面切換（輸入頁 → 表格頁）
+- 可選：使用 localStorage 儲存資料，避免刷新後遺失
+- 表格頁面可支援多張卡片（未來擴充）
+
+🔧 元件規劃建議
+|  |  | 
+| CardForm.jsx |  | 
+| CardTable.jsx |  | 
+| useCardData.js |  | 
+| App.jsx |  | 
+
+元件設計與 Props 規劃
+1. CardForm.jsx（新增／編輯卡片表單）
+|  |  | 
+| initialData |  | 
+| onSubmit(data) |  | 
+| onCancel() |  | 
+| mode | 'create''edit' | 
+
+
+✅ 建議使用 modal 彈出表單，避免頁面跳轉，操作更流暢。
+
+
+2. CardList.jsx（卡片列表頁面）
+|  |  | 
+| cards |  | 
+| onEdit(id) |  | 
+| onDelete(id) |  | 
+| onSpendChange(id, value) |  | 
+
+
+🗑️ 刪除建議跳出確認對話框，避免誤刪。
+
+
+3. CardRow.jsx（單一卡片表格列）
+|  |  | 
+| card |  | 
+| onEdit() |  | 
+| onDelete() |  | 
+| onSpendChange(value) |  | 
+
+
+src/
+├── components/
+│   ├── CardForm.jsx         # 新增／編輯卡片的表單元件（modal）
+│   ├── CardList.jsx         # 顯示所有卡片的表格元件
+│   ├── CardRow.jsx          # 單一卡片的表格列元件
+│   └── ConfirmDialog.jsx    # 刪除確認對話框（可選）
+│
+├── hooks/
+│   └── useCardManager.js    # 管理卡片資料與計算邏輯的自訂 hook
+│
+├── pages/
+│   └── Home.jsx             # 主頁面，包含卡片管理與記帳功能
+│
+├── App.jsx                  # 路由與頁面入口
+├── main.jsx                 # React DOM 渲染入口
+└── index.css                # 全域樣式（或 Tailwind 設定）
+
+
+
+- Home.jsx
+→ 作為主頁面，先建立基本框架與狀態管理
+- useCardManager.js
+→ 管理卡片陣列、CRUD 操作、計算邏輯（例如可刷額度）
+- CardForm.jsx
+→ 建立 modal 表單元件，支援新增與編輯
+- CardList.jsx + CardRow.jsx
+→ 顯示卡片資料表格，支援輸入已刷金額、編輯、刪除
+- ConfirmDialog.jsx（可選）
+→ 刪除時跳出確認框，提升使用者體驗
+
+
+方法一：部署到雲端平台（推薦）
+最簡單又穩定的方式是部署到 Vercel 或 Netlify：
+1. 	註冊 Vercel 帳號（https://vercel.com）
+2. 	將你的專案 push 到 GitHub
+3. 	在 Vercel 上連接 GitHub 專案並部署
+4. 	部署完成後會產生一個網址，例如：
+
+ 資料儲存機制（目前是記憶體）
+- 使用者輸入的金額在重新整理後會消失
+- 建議加上 localStorage 或串接 Firebase/Supabase
+2. 📱 響應式排版（手機顯示不穩定）
+- 固定寬度（如 200px）在小螢幕會跑版
+- 建議全面改用 % 或 flex/grid 排版，加上 media query
+3. 📊 資料視覺化（尚未有圖表或統計）
+- 可以加上「消費趨勢」、「回饋累積」等圖表
+- 使用 Chart.js 或 Recharts 都很適合
+4. 🔐 權限與登入（目前是公開使用）
+- 若未來要支援多人使用，需加上登入機制
+- 可用 Firebase Auth 或簡易密碼保護
+5. 📦 README 與專案說明（尚未撰寫）
+- 建議補上 README.md，說明功能、技術架構、部署方式
+- 有助於展示作品、吸引協作者或面試使用

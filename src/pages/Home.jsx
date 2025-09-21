@@ -1,21 +1,51 @@
 import React, { useState } from 'react';
 import CardRow from '../components/CardRow';
+// import ConfirmDialog from '../components/ConfirmDialog'; // ✅ 若你要啟用確認對話框，記得引入元件
 
 function Home({ cards, setCards }) {
-  // 🆕 新卡片輸入狀態
+  // 🆕 新卡片輸入狀態：用來暫存使用者在表單輸入的卡片資料
   const [newCard, setNewCard] = useState({
     name: '',
     cashbackLimit: '',
     cashbackPercent: '',
   });
 
-  // 🧠 處理輸入變更
+  // 🧠 處理表單輸入變更：根據 input 的 name 屬性更新對應欄位
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewCard(prev => ({ ...prev, [name]: value }));
   };
 
-  // ➕ 新增卡片
+  // 🧾 確認刪除對話框狀態管理
+  const [showConfirm, setShowConfirm] = useState(false);         // 是否顯示確認對話框
+  const [pendingDeleteId, setPendingDeleteId] = useState(null);  // 暫存欲刪除的卡片 ID
+
+  // 🗑️ 點擊刪除按鈕：觸發確認對話框
+  const handleDeleteClick = (id) => {
+    setPendingDeleteId(id);
+    setShowConfirm(true);
+  };
+
+  // ✅ 確認刪除：從 cards 陣列中移除指定卡片
+  const confirmDelete = () => {
+    setCards(prev => prev.filter(card => card.id !== pendingDeleteId));
+    setShowConfirm(false);
+  };
+
+  // ❌ 取消刪除：關閉對話框，不做任何變更
+  const cancelDelete = () => {
+    setShowConfirm(false);
+  };
+
+  // 🧩 確認對話框元件（目前放在函式外部，需移到 return 裡才會渲染）
+  // <ConfirmDialog
+  //   message="你確定要刪除這張卡片嗎？"
+  //   visible={showConfirm}
+  //   onConfirm={confirmDelete}
+  //   onCancel={cancelDelete}
+  // />
+
+  // ➕ 新增卡片：將表單資料加入 cards 陣列並清空表單
   const handleAddCard = () => {
     if (!newCard.name || !newCard.cashbackLimit || !newCard.cashbackPercent) return;
 
@@ -25,14 +55,14 @@ function Home({ cards, setCards }) {
       name: newCard.name,
       cashbackLimit: Number(newCard.cashbackLimit),
       cashbackPercent: Number(newCard.cashbackPercent),
-      spent: 0,
+      spent: 0, // 初始已刷金額為 0
     };
 
-    setCards(prev => [...prev, card]);
+    setCards(prev => [...prev, card]); // 加入新卡片
     setNewCard({ name: '', cashbackLimit: '', cashbackPercent: '' }); // 清空表單
   };
 
-  // 🧾 已有的卡片列
+  // 💳 已刷金額變更：更新指定卡片的 spent 欄位
   const handleSpendChange = (id, newValue) => {
     setCards(prev =>
       prev.map(card =>
@@ -41,10 +71,12 @@ function Home({ cards, setCards }) {
     );
   };
 
+  // 🗑️ 直接刪除卡片（未使用確認對話框）
   const handleDelete = (id) => {
     setCards(prev => prev.filter(card => card.id !== id));
   };
 
+  // ✏️ 編輯卡片資料：更新指定卡片的欄位（例如名稱、回饋比例等）
   const handleEdit = (id, updatedFields) => {
     setCards(prev =>
       prev.map(card =>
@@ -55,7 +87,7 @@ function Home({ cards, setCards }) {
 
   return (
     <div className="home-container">
-      {/* 🆕 新增卡片表單 */}
+      {/* 🆕 新增卡片表單區塊 */}
       <div className="form-title">新增卡片</div>
       <div className="form-row">
         <input
@@ -85,7 +117,7 @@ function Home({ cards, setCards }) {
         <button className="btn" onClick={handleAddCard}>➕ 新增</button>
       </div>
 
-      {/* 📋 卡片列表 */}
+      {/* 📋 卡片列表區塊 */}
       <table>
         <thead>
           <tr>
@@ -102,12 +134,20 @@ function Home({ cards, setCards }) {
               key={card.id}
               card={card}
               onSpendChange={handleSpendChange}
-              onDelete={handleDelete}
+              onDelete={handleDelete}         // ✅ 若要使用確認對話框，改成 handleDeleteClick
               onEdit={handleEdit}
             />
           ))}
         </tbody>
       </table>
+
+      {/* ✅ 確認刪除對話框（建議放在 return 最底部） */}
+      {/* <ConfirmDialog
+        message="你確定要刪除這張卡片嗎？"
+        visible={showConfirm}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      /> */}
     </div>
   );
 }
