@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CardRow from '../components/CardRow';
-// import ConfirmDialog from '../components/ConfirmDialog'; // ✅ 若你要啟用確認對話框，記得引入元件
+// import ConfirmDialog from '../components/ConfirmDialog'; // ✅ 若要啟用確認對話框，記得引入元件
 
 function Home({ cards, setCards }) {
   // 🆕 新卡片輸入狀態：用來暫存使用者在表單輸入的卡片資料
@@ -37,14 +37,6 @@ function Home({ cards, setCards }) {
     setShowConfirm(false);
   };
 
-  // 🧩 確認對話框元件（目前放在函式外部，需移到 return 裡才會渲染）
-  // <ConfirmDialog
-  //   message="你確定要刪除這張卡片嗎？"
-  //   visible={showConfirm}
-  //   onConfirm={confirmDelete}
-  //   onCancel={cancelDelete}
-  // />
-
   // ➕ 新增卡片：將表單資料加入 cards 陣列並清空表單
   const handleAddCard = () => {
     if (!newCard.name || !newCard.cashbackLimit || !newCard.cashbackPercent) return;
@@ -56,17 +48,20 @@ function Home({ cards, setCards }) {
       cashbackLimit: Number(newCard.cashbackLimit),
       cashbackPercent: Number(newCard.cashbackPercent),
       spent: 0, // 初始已刷金額為 0
+      history: [], // 初始化消費紀錄陣列
     };
 
     setCards(prev => [...prev, card]); // 加入新卡片
     setNewCard({ name: '', cashbackLimit: '', cashbackPercent: '' }); // 清空表單
   };
 
-  // 💳 已刷金額變更：更新指定卡片的 spent 欄位
-  const handleSpendChange = (id, newValue) => {
+  // 💳 累加消費並記錄歷程：更新指定卡片的 spent 與 history 欄位
+  const handleSpendChange = (id, newSpent, newHistory) => {
     setCards(prev =>
       prev.map(card =>
-        card.id === id ? { ...card, spent: Number(newValue) } : card
+        card.id === id
+          ? { ...card, spent: newSpent, history: newHistory }
+          : card
       )
     );
   };
