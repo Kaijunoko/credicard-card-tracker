@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import CardRow from '../components/CardRow';
-// import ConfirmDialog from '../components/ConfirmDialog'; // ✅ 若要啟用確認對話框，記得引入元件
+import ConfirmDialog from '../components/ConfirmDialog'; // ✅ 引入確認對話框元件
 
 function Home({ cards, setCards }) {
   // 🆕 新卡片輸入狀態：用來暫存使用者在表單輸入的卡片資料
@@ -66,11 +66,6 @@ function Home({ cards, setCards }) {
     );
   };
 
-  // 🗑️ 直接刪除卡片（未使用確認對話框）
-  const handleDelete = (id) => {
-    setCards(prev => prev.filter(card => card.id !== id));
-  };
-
   // ✏️ 編輯卡片資料：更新指定卡片的欄位（例如名稱、回饋比例等）
   const handleEdit = (id, updatedFields) => {
     setCards(prev =>
@@ -129,20 +124,20 @@ function Home({ cards, setCards }) {
               key={card.id}
               card={card}
               onSpendChange={handleSpendChange}
-              onDelete={handleDelete}         // ✅ 若要使用確認對話框，改成 handleDeleteClick
+              onDelete={handleDeleteClick}   // ✅ 改成觸發確認對話框
               onEdit={handleEdit}
             />
           ))}
         </tbody>
       </table>
 
-      {/* ✅ 確認刪除對話框（建議放在 return 最底部） */}
-      {/* <ConfirmDialog
+      {/* ✅ 確認刪除對話框（放在 return 最底部） */}
+      <ConfirmDialog
         message="你確定要刪除這張卡片嗎？"
         visible={showConfirm}
         onConfirm={confirmDelete}
         onCancel={cancelDelete}
-      /> */}
+      />
     </div>
   );
 }
